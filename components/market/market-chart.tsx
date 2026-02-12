@@ -13,28 +13,28 @@ interface MarketChartProps {
 }
 
 function generateIntradayData(baseValue: number, isUp: boolean) {
-  const data: { time: string; value: number }[] = []
-  const volumeData: { time: string; value: number; color: string }[] = []
+  const data: { time: number; value: number }[] = []
+  const volumeData: { time: number; value: number; color: string }[] = []
   let current = baseValue * (isUp ? 0.997 : 1.003)
   const today = new Date()
-  const dateStr = today.toISOString().split("T")[0]
+  today.setHours(0, 0, 0, 0)
 
-  // Generate intraday data using sequential seconds as time
+  // Generate intraday data using Unix timestamps
   for (let i = 0; i < 240; i++) {
     const hour = 9 + Math.floor((i + 30) / 60)
     const minute = (i + 30) % 60
-    const timeStr = `${dateStr} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`
+    const timestamp = Math.floor(today.getTime() / 1000) + hour * 3600 + minute * 60
 
     current += (Math.random() - (isUp ? 0.45 : 0.55)) * baseValue * 0.0008
     const vol = Math.random() * 50000 + 5000
 
     data.push({
-      time: timeStr,
+      time: timestamp,
       value: parseFloat(current.toFixed(2)),
     })
 
     volumeData.push({
-      time: timeStr,
+      time: timestamp,
       value: Math.round(vol),
       color: Math.random() > 0.5 ? "rgba(234, 57, 67, 0.4)" : "rgba(38, 166, 91, 0.4)",
     })
