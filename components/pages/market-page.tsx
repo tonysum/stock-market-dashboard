@@ -6,6 +6,7 @@ import { MarketChart } from "@/components/market/market-chart"
 import { HeatMap } from "@/components/market/heat-map"
 import { StockRanking } from "@/components/market/stock-ranking"
 import { MarketTabs } from "@/components/market/market-tabs"
+import { AllStocksTable } from "@/components/market/all-stocks-table"
 
 const mainTabs = ["自选", "港股", "美股", "沪深", "新加坡", "日股", "马来西亚", "加拿大", "澳大利亚", "沪深港通", "外汇", "基金", "数币"]
 const subTabs = ["A股热点", "全部股票", "上证B股", "上主板", "深主板", "科创板", "可转债", "已上市新股", "可融资股票", "基金", "明星基金", "所有板块"]
@@ -53,44 +54,50 @@ export function MarketPage() {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left: Charts and heatmap */}
-        <div className="flex flex-1 flex-col overflow-hidden">
-          {/* Index charts section */}
-          <div className="border-b border-border p-2">
-            <div className="flex items-center gap-1 mb-2">
-              <span className="text-xs text-muted-foreground">大盘指数</span>
+      {activeSubTab === "全部股票" ? (
+        <div className="flex-1 overflow-hidden">
+          <AllStocksTable />
+        </div>
+      ) : (
+        <div className="flex flex-1 overflow-hidden">
+          {/* Left: Charts and heatmap */}
+          <div className="flex flex-1 flex-col overflow-hidden">
+            {/* Index charts section */}
+            <div className="border-b border-border p-2">
+              <div className="flex items-center gap-1 mb-2">
+                <span className="text-xs text-muted-foreground">大盘指数</span>
+              </div>
+              <div className="flex gap-3">
+                <MarketChart
+                  name="上证指数"
+                  value="4134.38"
+                  change="+2.40"
+                  changePercent="+0.06%"
+                  isUp={true}
+                />
+                <MarketChart
+                  name="深证成指"
+                  value="14207.52"
+                  change="+44.59"
+                  changePercent="+0.33%"
+                  isUp={true}
+                />
+              </div>
             </div>
-            <div className="flex gap-3">
-              <MarketChart
-                name="上证指数"
-                value="4134.38"
-                change="+2.40"
-                changePercent="+0.06%"
-                isUp={true}
-              />
-              <MarketChart
-                name="深证成指"
-                value="14207.52"
-                change="+44.59"
-                changePercent="+0.33%"
-                isUp={true}
-              />
+
+            {/* Heatmap section */}
+            <div className="flex-1 overflow-hidden p-2">
+              <MarketTabs />
+              <HeatMap />
             </div>
           </div>
 
-          {/* Heatmap section */}
-          <div className="flex-1 overflow-hidden p-2">
-            <MarketTabs />
-            <HeatMap />
+          {/* Right: Rankings */}
+          <div className="w-[520px] border-l border-border overflow-hidden">
+            <StockRanking />
           </div>
         </div>
-
-        {/* Right: Rankings */}
-        <div className="w-[520px] border-l border-border overflow-hidden">
-          <StockRanking />
-        </div>
-      </div>
+      )}
     </div>
   )
 }
