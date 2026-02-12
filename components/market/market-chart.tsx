@@ -59,24 +59,24 @@ export function MarketChart({ name, value, change, changePercent, isUp }: Market
     const chart = createChart(chartContainerRef.current, {
       layout: {
         background: { type: ColorType.Solid, color: "transparent" },
-        textColor: "hsl(210, 10%, 45%)",
+        textColor: "#6b7280",
         fontSize: 9,
       },
       grid: {
-        vertLines: { color: "hsl(220, 15%, 13%)" },
-        horzLines: { color: "hsl(220, 15%, 13%)" },
+        vertLines: { color: "#1f2937" },
+        horzLines: { color: "#1f2937" },
       },
       crosshair: {
         mode: 0,
-        vertLine: { color: "hsl(210, 10%, 30%)", labelBackgroundColor: "hsl(220, 15%, 20%)" },
-        horzLine: { color: "hsl(210, 10%, 30%)", labelBackgroundColor: "hsl(220, 15%, 20%)" },
+        vertLine: { color: "#454b54", labelBackgroundColor: "#2d3340" },
+        horzLine: { color: "#454b54", labelBackgroundColor: "#2d3340" },
       },
       rightPriceScale: {
-        borderColor: "hsl(220, 15%, 18%)",
+        borderColor: "#272e3a",
         scaleMargins: { top: 0.05, bottom: 0.25 },
       },
       timeScale: {
-        borderColor: "hsl(220, 15%, 18%)",
+        borderColor: "#272e3a",
         timeVisible: true,
         secondsVisible: false,
       },
